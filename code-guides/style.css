@@ -1,0 +1,146 @@
+/* A. Centering a div within a div */
+
+/* A.1. 2D transform --> BETTER WAY */
+
+/* Horizontal + vertical centering w/ transform n translate*/
+.parent {
+  position: relative;
+  /* Karena parent nya block, perlu specify parent height (and width, tp mostly adjust height ud cukup) */
+  height: 50vh;
+}
+.child {
+  /* center by: */
+  position: absolute;
+  /* Ujung kiri atas child element bakal di tengah, but that's not what we want... */
+  top: 50%;
+  left: 50%;
+  /* Offset the element's size */
+  transform: translate(-50%, -50%);
+  /* Ujung kiri atas child harus ditranslate sebesar -50% (geser ke kiri dan ke atas) di sumbu x dan sumbu y, agar tengah2 child bener2 ditengah div (what we wanted) */
+  
+  /* For different websites */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+/* A.2. Using flexbox --> THE QUICKEST WAY TO CENTER ANYTHING*/
+.parent {
+  /* bahkan childnya ga perlu di style */
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  /* or */
+  place-items: center center;
+}
+
+/*  EXTRA METHODS
+
+1. margin: 0 auto --> horizontal align
+buat margin: 0 auto --> perlu define widthnya, punya block/table display, must not have position fixed/absolute, can't be used for vertical align, byk limitations 
+
+2. kombinasi text-align and inline-block --> ga perlu specify width. --> can't be used for vertical align, only horizontal align
+
+.child {
+  display: inline-block;
+  Bakal subject to text-align property of parent
+}
+.parent {
+  text-align: center;
+}
+
+*/
+
+
+/* CSS Positioning
+positioning element menggunakan top, left, dll. Tapi harus di specify terlebih dahulu, type positioning nya apa (absolute/dll).
+
+
+
+position: [property]
+
+*/
+
+/* CSS Display
+block elememt: forces new lines
+
+inline: doesn't force new lines. padding/margin -> shows visually, tp ga affect outline page lu. Jd bisa aja padding element lu collide sama element lainnya, membuat website lu jadi berantakan.
+
+agar display inline tapi bisa mengutak-atik width/heightnya, pake display: inline-block. di inline-block, padding dll mempengaruhi structure webnya jadi lebih rapi.
+Di inline-block, lu bisa set padding/margin/height/width properties layaknya block element, tapi elementnya juga ga forces a new line karena it only takes up as little space possible.
+*/
+
+/* RANDOM NOTES
+kalo style link, padding top/bottom < padding left/right biar lebih balanced !
+
+
+
+*/
+
+
+/* CSS Positioning
+1. static --> default
+
+2. relative --> sama kyk static but it allows you to do 4 things that static does not. 
+   change the item's position relative to its default (static) position. Jadi kalo misal posisi ujung kiri box pada position:static adalah (100, 200) maka jika kita pake position: relative dan tambahin left:50px dan top:50 px, koordinat akhir ujung kiri atas box tsb akan menjadi (150, 250) dimana akan di tambahkan padding 50px relatif terhadap posisi static nya. Bakal overflow kalo overlap, karena the element is taken of from the document flow.
+  can change top, left, bottom, right
+
+3. absolute --> item dengan property position: absolute bakal di remove from the document flow dan seluruh elemen lainnya bakal bergerak/ terposisikan as if element yang dikenakan absolute itu tidak ada.  Bagus kalo lu pengen stick something in a position tapi gamau ngacoin design webnya. Kalo lu kasih property top, left dll, elementnya bakal di reference based on parent container. By default parent nya ini akan menjadi <html> lu. Kalo lu pengen pake refernce lain, maka parent yang ditujukan harus lu kasih position: [anything]. Biasanya, position: relative digunakan pada parent container dari element yang dikenakan position: absolute!! relative gada guna lain selain ini tbh.
+
+parent = relative
+  child = absolute 
+
+4. fixed --> mirip absolute.  fixed based on entire html element. Fixed moves with the page and stays on the same position as you scroll.
+
+5. sticky --> kombinasi relative + fixed.  Digunakan kalo lu pengen navbar yang stick to the page meskipun lu scroll ke bawah. Awal2 nya relative. Trus pas lu scroll kebawah sifatnya bakal menjadi fixed.
+
+*/
+
+/* CSS Box Model
+Margin: when we want to space 2 elements apart from each other
+Padding: to add background to an element, to make it around the content
+border --> bisa di set juga thicknessnya. ga cuman 1 px doang.
+Penting: margin collapses. Kalo ada 2 margin diantara 2 element, yang di apply adalah margin yang paling besar.
+
+box-sizing: border box --> bikin height/width account for padding & border jadi ngga ngaco layoutnya. Contentnya will shrunk down.
+
+margin --> for spacing 2 elements away from each other
+padding --> to space out an element from itself (ngasih ruang di dalam element itu sendiri). padding di dalem border dan bakal include background color. margin ngga include background color.
+
+lu bakal sering pake box-sizing: border-box, makanya ada bagusnya lu taro property ini di universal selector * {[p]: [v]}
+
+
+
+
+*/
+
+/* PAGE LAYOUTS */
+
+/* CSS Flexbox */
+/* 
+HTML
+div parent --> contains our flexbox elements
+  div child
+
+CSS
+.parent {
+  display: flex;
+}
+
+kalo flexbox container punya >1 flexbox items, maka height smua flexbox items bakal ngikutin/setinggi flexbox item yang paling besar height nya.
+
+main axis --> ada secara horizontally. left to right.
+cross axis --> mengambil tempat secara vertikal. top to bottom.
+Karena: flexbox di susun secara row, by default. makanya main axisnya left to right.
+kalo flexbox direction lu atur secara column/vertikal, maka main axisnya akan ada secara vertikal.
+
+align-self --> overrides other positioning properties (justify-content,dll).
+*/
+
+/* IN MOST CASES,   
+flex-grow, flex-shrink, justify-content, align-item properties is what you'll use for dynamic layout.
+*/

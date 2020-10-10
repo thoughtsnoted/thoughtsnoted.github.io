@@ -1,0 +1,66 @@
+.flexbox-container {
+  display: flex;
+  background-color: yellow;
+
+  /* if you want the items to not shrink in size when you resize your window. instead, it will wrap to the next row. */
+  flex-wrap: wrap;
+
+  /* How items grow/shrink */
+
+  /* justify-content buat aligning at main axis */
+  justify-content: center; /* default: x axis. --> flex-start (di ujung awal main axis direction) || center || flex-end (kiri) || space-between (extra space bakal ditaro evenly diantara sepasang flex item) || space-around (jika mau kayak space-between, tapi dengan spacing diluar (tidak diantara) sepasang flex element.*/
+  
+  /* align-items buat aligning items sepanjang cross axis */
+  align-items: center;
+
+  /* align content buat multi-line flexbox container. karena align content align seluruh isi container itu as a whole */
+  /* align-content: space-between; */ /* kalo flexbox-container diberi height: n px, maka align-content bakal nentuin positioning dari flexbox items saat lu resize your window. */
+
+  flex-direction: row; /* menentukan main axis flexbox bergerak ke arah mana. values: [center || column || etc.]*/
+
+  /* 
+  container hanya untuk spacing between your items, dan juga positioning your items inside your container.
+  */
+}
+.flexbox-item {
+  width: 200px;
+  margin: 10px;
+  border: 3px solid black;
+  background-color: #dfdfdf;
+}
+.flexbox-item-1 {
+  min-height: 100px;
+  width: 300px;
+  flex-shrink: 0; /* item ini gabakal shrink (imposes a minimum size for the window) meski window lu dikecilin */
+  align-self: center; /* bakalan override positioning dari justify-content dkk. */
+}
+.flexbox-item-2 {
+  min-height: 200px;
+  flex-grow: 2;
+}
+.flexbox-item-3 {
+  min-height: 300px;
+  flex-grow: 1; /* kalo ada extra space, maka value flex-grow di suatu element bakal nentuin proporsional growthnya terhadap extra space tersebut. nilai 1 (dari total flex-grow = 1 utk smua item di flexbox-container) berarti flex item bakal fill 100% of the extra space.  */
+}
+
+/* flex item 2 dan 3 punya the same number of flex-grow, berarti akan terbagi 50-50 dalam kasus pengisian extra space di flex container.
+
+jika
+.item1 {
+  flex-grow: 2;
+}
+.item2 {
+  flex-grow: 1;
+}
+
+bukan berarti bahwa size item1 = 2 * item2. perbandingan flex-grow hanyalah perbandingan alokasi extra space di parent container.
+
+*/
+
+/* order --> ubah urutan flex items tanpa mengubah structure HTML ! --> penyusunan urutan akan along the main axis. --> it messes up the flow. gausa dipake kecuali lu ngerti + butuh. */
+
+/* powerful shorthand property
+flex: [flex-grow] [flex-shrink] [flex-basis];
+e.g. flex: 1 1 1;
+
+*/
